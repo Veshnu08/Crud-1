@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2>Fruits Management</h2>  
+
+  <!-- Form -->
+  <form #fruitForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row mb-3">
+      <div class="col">
+        <input type="text" class="form-control" [(ngModel)]="fruit.name" name="name" placeholder="Fruit Name" required>
+      </div>
+      <div class="col">
+        <input type="number" class="form-control" [(ngModel)]="fruit.price" name="price" placeholder="Price" required>
+      </div>
+      <div class="col">
+        <input type="number" class="form-control" [(ngModel)]="fruit.quantity" name="quantity" placeholder="Quantity" required>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Add' }} Fruit</button>
+        <button *ngIf="isEditing" type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Table -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fruit of fruits">
+        <td>{{ fruit.name }}</td>
+        <td>{{ fruit.price | currency }}</td>
+        <td>{{ fruit.quantity }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="editFruit(fruit)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteFruit(fruit.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
